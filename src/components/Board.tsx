@@ -89,7 +89,9 @@ function Board({ xIsNext, squares, onPlay }: BoardProps): JSX.Element {
       board.push(
         <div
           key={i}
-          className={`flex border-l-8 border-grey ${count > 5 ? "border-b-8" : ""}`}
+          className={`flex border-l-8 border-grey ${
+            count > 5 ? "border-b-8" : ""
+          }`}
         >
           {row}
         </div>
