@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Square from "./Square";
 
 interface BoardProps {
@@ -69,8 +70,8 @@ function Board({ xIsNext, squares, onPlay }: BoardProps): JSX.Element {
   const status = winner
     ? `Winner: ${winner}`
     : !boardHasSpace()
-    ? "Tie"
-    : `Current Player: ${xIsNext ? "X" : "O"}`;
+    ? "It's a Tie!"
+    : `${xIsNext ? "X" : "O"} is on the move`;
 
   /**
    * Renders the Tic-Tac-Toe board dynamically using loops.
@@ -114,14 +115,26 @@ function Board({ xIsNext, squares, onPlay }: BoardProps): JSX.Element {
         value={squares[index]}
         onSquareClick={() => handleClick(index)}
         highlight={isHighlighted}
+        winner={winnerSquares != null}
       />
     );
   }
 
+  let statusClassName = classNames("font-bold", {
+    "text-mygreen": xIsNext && winnerSquares == null,
+    "text-myorange": !xIsNext && winnerSquares == null,
+    "text-black": !boardHasSpace(),
+    "font-normal": !boardHasSpace()
+    
+  });
   return (
     <>
-      <div className="inline-block">{renderBoard()}</div>
-      <p>{status}</p>
+      <div className="inline-block p-4 rounded-md mb-4">{renderBoard()}</div>
+      <p className="bg-gray-200 flex  justify-center items-center px-5 py-4 rounded-full text-xl">
+        <p className={statusClassName}>{status.replace(/ .*/, "")}</p>
+        <p>&nbsp;</p>
+        {status.split(" ").slice(1).join(" ")}
+      </p>
     </>
   );
 }

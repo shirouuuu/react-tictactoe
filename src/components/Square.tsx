@@ -1,7 +1,10 @@
+import classNames from "classnames";
+
 interface SquareProps {
   value: string | null; // The value can be "X", "O", or null
   onSquareClick: () => void; // The function called when the square is clicked
-  highlight?: boolean; // Optional boolean to indicate whether to highlight the square
+  highlight?: boolean;
+  winner?: boolean; // Optional boolean to indicate whether to highlight the square
 }
 
 /**
@@ -13,13 +16,19 @@ function Square({
   value,
   onSquareClick,
   highlight = false,
+  winner = false,
 }: SquareProps): JSX.Element {
+  let className = classNames(
+    "w-56 h-56 border-r-8 border-t-8 border-grey bg-gray-100/75 text-8xl font-extrabold",
+    {
+      "text-black text-opacity-0": !highlight && winner,
+      "bg-gray-400": highlight,
+      "text-mygreen": value == "X",
+      "text-myorange": value == "O",
+    }
+  );
   return (
-    <button
-      className="w-56 h-56 border-r-8 border-t-8 border-grey bg-teal-300/25"
-      onClick={onSquareClick}
-      style={{ backgroundColor: highlight ? "blue" : "" }}
-    >
+    <button className={className} onClick={onSquareClick}>
       {value}
     </button>
   );
