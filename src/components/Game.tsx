@@ -42,14 +42,50 @@ export default function Game(): JSX.Element {
 
   // Map over the game history to create buttons for each move.
   const moves: JSX.Element[] = history.map((squares: any, move) => {
-    const description = move > 0 ? `Go to move #${move}` : "Go to game start";
+    const description =
+      move > 0 ? (
+        <>
+          Go to move{" "}
+          <span
+            className={`
+              transition-all duration-500 ease-in-out group-hover:text-white
+              ${
+                move % 2 === 0
+                  ? "text-mygreen font-bold"
+                  : "text-myorange font-bold"
+              }`}
+          >
+            #{move}
+          </span>
+        </>
+      ) : (
+        "Go to game start"
+      );
 
     return (
-      <li key={move}>
+      <li className="w-full" key={move}>
         {move === currentMove ? (
-          <p>You're at move # {move}</p>
+          <p className="group bg-gray-200 px-5 py-3 text-lg font-semibold text-center w-full rounded-xl  transition-all hover:duration-200 hover:bg-gradient-to-r hover:from-mygreen hover:via-myorange hover:to-myblue hover:bg-size-200  hover:text-white">
+            You're at move{" "}
+            <span
+              className={`
+                    transition-all duration-200 ease-in-out group-hover:text-white
+                    ${
+                      move % 2 === 0
+                        ? "text-mygreen font-bold"
+                        : "text-myorange font-bold"
+                    }`}
+            >
+              #{move}
+            </span>
+          </p>
         ) : (
-          <button onClick={() => jumpTo(move)}>{description}</button>
+          <button
+            className="group bg-gray-200 px-5 py-3 text-lg font-semibold text-center w-full rounded-xl  transition-all hover:duration-200 hover:bg-gradient-to-r hover:from-mygreen hover:via-myorange hover:to-myblue hover:bg-size-200  hover:text-white"
+            onClick={() => jumpTo(move)}
+          >
+            {description}
+          </button>
         )}
       </li>
     );
@@ -59,13 +95,23 @@ export default function Game(): JSX.Element {
   const displayedMoves = isReversed ? moves.reverse() : moves;
 
   return (
-    <div className="game flex justify-center items-center h-full">
-      <div className="game-board flex flex-col justify-center items-center p-10">
+    <div className="game flex w-full h-full flex-grow">
+      <div className="w-1/3"></div>
+      <div className="game-board flex flex-col justify-center items-center w-1/3">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className="game-info">
-        <button onClick={toggleOrder}>Toggle Order</button>
-        <ol>{displayedMoves}</ol>
+      <div className="game-info flex flex-col justify-center items-center w-1/3">
+        <div className="flex flex-col justify-center items-center bg-slate-100 p-4 rounded-lg gap-4">
+          <button
+            className="transition-all duration-500 bg-gradient-to-r from-mygreen via-myorange to-myblue bg-size-200 bg-pos-0 hover:bg-pos-100 text-white text- text-lg font-bold py-3 px-5 rounded-full w-full"
+            onClick={toggleOrder}
+          >
+            Toggle Order
+          </button>
+          <ol className="flex flex-col items-center gap-2 ">
+            {displayedMoves}
+          </ol>
+        </div>
       </div>
     </div>
   );

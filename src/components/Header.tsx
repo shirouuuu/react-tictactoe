@@ -1,7 +1,14 @@
-export default function Header() {
+interface HeaderProps {
+  setHasStarted: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Header({ setHasStarted }: HeaderProps) {
   return (
     <div className="flex px-10 items-center justify-around bg-gray-100 w-full h-32 border-b-2 drop-shadow-sm">
-      <h1 className="text-6xl font-semibold drop-shadow-sm">
+      <h1
+        className="text-6xl font-semibold drop-shadow-sm cursor-pointer"
+        onClick={() =>setHasStarted(false)}
+      >
         <span className="text-myorange">Tic</span>
         <span className="text-myblue">Tac</span>
         <span className="text-mygreen">Toe</span>

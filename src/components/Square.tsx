@@ -19,7 +19,7 @@ function Square({
   winner = false,
 }: SquareProps): JSX.Element {
   let className = classNames(
-    "w-56 h-56 border-r-8 border-t-8 border-grey bg-gray-100/75 text-8xl font-extrabold",
+    "square  h-full w-1/3 border-r-8 border-t-8 border-grey bg-gray-100/75 text-8xl font-extrabold",
     {
       "text-black text-opacity-0": !highlight && winner,
       "bg-gray-400": highlight,

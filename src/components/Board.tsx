@@ -90,7 +90,7 @@ function Board({ xIsNext, squares, onPlay }: BoardProps): JSX.Element {
       board.push(
         <div
           key={i}
-          className={`flex border-l-8 border-grey ${
+          className={`border h-1/3 flex border-l-8 border-grey ${
             count > 5 ? "border-b-8" : ""
           }`}
         >
@@ -124,16 +124,14 @@ function Board({ xIsNext, squares, onPlay }: BoardProps): JSX.Element {
     "text-mygreen": xIsNext && winnerSquares == null,
     "text-myorange": !xIsNext && winnerSquares == null,
     "text-black": !boardHasSpace(),
-    "font-normal": !boardHasSpace()
-    
   });
   return (
     <>
-      <div className="inline-block p-4 rounded-md mb-4">{renderBoard()}</div>
-      <p className="bg-gray-200 flex  justify-center items-center px-5 py-4 rounded-full text-xl">
+      <div className="board w-full h-4/6 mb-4">{renderBoard()}</div>
+      <p className="status flex justify-center items-center px-5 py-4 text-xl font-semibold">
         <p className={statusClassName}>{status.replace(/ .*/, "")}</p>
         <p>&nbsp;</p>
-        {status.split(" ").slice(1).join(" ")}
+        <span>{status.split(" ").slice(1).join(" ")}</span>
       </p>
     </>
   );
